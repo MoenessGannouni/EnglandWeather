@@ -1,0 +1,33 @@
+#Transformation des données
+# Encodage des variables
+# qualitatives
+Color=c("red","blue","red","green")
+#package pour l'encodage
+install.packages("CatEncoders")
+library(CatEncoders)
+#définir le label pour chaque catégorie
+lab=LabelEncoder.fit(Color)
+Code=transform(lab,Color)
+Data=data.frame(Color,Code)
+View(Data)
+
+#one hot encoder
+d=data.frame(cat=as.factor(c("Transport","Grocery","bills")),Amount=c(100,300,200))
+# packages pour one hot encoder
+install.packages("mltools")
+library(mltools)
+
+install.packages("data.table")
+library(data.table)
+NewD=one_hot(as.data.table(d))
+
+#Encodage ordinale
+V1=c(100,95.5,111,103,125.35)
+V2=factor(c("Précis","Assez Précis","Peu Précis","Précis","Très Précis"))
+D1=data.frame(Mesure=V1,Etat=V2)
+OrderList=c("Très Précis","Précis","Assez Précis","Peu Précis")
+install.packages("cleandata")
+library(cleandata)
+Code1=encode_ordinal(D1,order=OrderList)
+D2=data.frame(D1,Code1)
+D2
